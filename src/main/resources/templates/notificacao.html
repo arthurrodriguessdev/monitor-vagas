@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificação de Tarefa</title>
+    <link rel="stylesheet" href="/static/css/notificacao.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Novas vagas para você!</h1>
+            <p>Confira as oportunidades que achamos que vai combinar com você.</p>
+        </div>
+
+        <div class="content">
+            <div class="card-vaga" th:each="vaga : ${vagas}">
+                <p th:text="${vaga.tituloVaga}"></p>
+                <p th:text="${vaga.nomeEmpresa}"></p>
+                <p th:text="${vaga.dataPublicacao}"></p>
+                <p th:text="${vaga.urlVaga}"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

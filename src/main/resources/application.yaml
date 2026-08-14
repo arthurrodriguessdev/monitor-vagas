@@ -1,3 +1,19 @@
 spring:
   application:
     name: monitor-vagas
+  mail:
+    nomeRemetente: Arthur Rodrigues
+    username: arthurrodrigues1801r@gmail.com
+    host: smtp.gmail.com
+    port: 587
+    password: vsrs ubsn mswl foxo
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  thymeleaf:
+    enable: true
+server:
+  port: 8089

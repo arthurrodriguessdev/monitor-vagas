@@ -6,6 +6,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -17,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailService {
@@ -28,7 +30,7 @@ public class EmailService {
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
 
-    public void enviarEmail(List<JobDTO> listaVagas){
+    public void enviarEmail(List<JobDTO> listaVagas, int quantidadeVagas){
         try{
             MimeMessage mensagem = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(
@@ -36,15 +38,17 @@ public class EmailService {
 
             mimeMessageHelper.setFrom(new InternetAddress(remetente, nomeRemetente));
             mimeMessageHelper.setTo(InternetAddress.parse("canaldotu050@gmail.com"));
-            mimeMessageHelper.setSubject("Notificação de Tarefa");
+            mimeMessageHelper.setSubject("Vagas de Emprego");
 
             // Setando variáveis do template
             Context context = new Context();
             context.setVariable("vagas", listaVagas);
+            context.setVariable("quantidadeVagas", quantidadeVagas);
 
             String template = templateEngine.process("notificacao", context);
             mimeMessageHelper.setText(template, true);
             javaMailSender.send(mensagem);
+            log.info("E-mail enviado com sucesso");
 
         } catch (MessagingException e) {
             throw new EmailException("Erro ao montar a mensagem de e-mail.", e);

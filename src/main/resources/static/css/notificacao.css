@@ -47,7 +47,7 @@ body {
 .card-vaga {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     padding: 22px;
     margin-bottom: 18px;
     background-color: #ffffff;
@@ -63,4 +63,22 @@ body {
 .card-vaga p {
     font-size: 14px;
     color: #6b7280;
+    font-weight: bold;
+}
+
+.card-vaga a {
+    color: #111827;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid #111827;
+    transition: opacity 0.2s ease;
+}
+
+.card-vaga a:hover {
+    opacity: 0.65;
+}
+
+.card-vaga p span {
+    font-weight: 400;
 }

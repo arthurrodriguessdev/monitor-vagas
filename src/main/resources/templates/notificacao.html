@@ -3,21 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <title>Notificação de Tarefa</title>
-    <link rel="stylesheet" href="/static/css/notificacao.css">
+<!--    STANDBY: <link rel="stylesheet" href="/static/css/notificacao.css">-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            padding: 35px 40px;
+            background: #111827;
+            color: #ffffff;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            font-weight: 400;
+            color: #d1d5db;
+        }
+
+        .content {
+            padding: 35px 40px;
+        }
+
+        .card-vaga {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 22px;
+            margin-bottom: 18px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card-vaga:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-vaga p {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: bold;
+        }
+
+        .card-vaga a {
+            color: #111827;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid #111827;
+            transition: opacity 0.2s ease;
+        }
+
+        .card-vaga a:hover {
+            opacity: 0.65;
+        }
+
+        .card-vaga p span {
+            font-weight: 400;
+        }
+    </style>
+
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Novas vagas para você!</h1>
-            <p>Confira as oportunidades que achamos que vai combinar com você.</p>
+            <p>Confira as
+                <span th:text="${quantidadeVagas}"></span>
+                oportunidades que achamos que vai combinar com você.
+            </p>
         </div>
 
         <div class="content">
             <div class="card-vaga" th:each="vaga : ${vagas}">
-                <p th:text="${vaga.tituloVaga}"></p>
-                <p th:text="${vaga.nomeEmpresa}"></p>
-                <p th:text="${vaga.dataPublicacao}"></p>
-                <p th:text="${vaga.urlVaga}"></p>
+                <div>
+                    <p>Vaga: <span th:text="${vaga.tituloVaga}"></span></p>
+                    <p>Empresa: <span th:text="${vaga.nomeEmpresa}"></span></p>
+                    <p th:if="${vaga.dataPublicacao}">
+                        Data Publicação:
+                        <span th:text="${vaga.dataPublicacao}"></span>
+                    </p>
+                    <p>Link Post: <a th:href="${vaga.urlVaga}" target="_blank">Acessar vaga</a></p>
+                </div>
             </div>
         </div>
     </div>

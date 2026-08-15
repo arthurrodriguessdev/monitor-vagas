@@ -2,14 +2,14 @@ package arthurrodrigues.monitorvagas.business.scraper;
 
 import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
 import arthurrodrigues.monitorvagas.business.interfaces.IScraper;
+import arthurrodrigues.monitorvagas.business.utils.ScraperUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -19,29 +19,21 @@ import java.util.List;
 @Slf4j
 @Service
 public class GupyService implements IScraper {
-    private final String url = "https://portal.gupy.io/vagas";
+    @Value("${url.gupy}")
+    private String url;
 
     @Override
     public List<JobDTO> buscarVagas() throws InterruptedException{
-        ChromeOptions options = new ChromeOptions();
-
-        options.addArguments("--headless");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-
-        WebDriver driver = new ChromeDriver(options);
-
+        WebDriver driver = ScraperUtils.getDriver();
         List<JobDTO> vagasEncontradas = new ArrayList<>();
-        try {
+        int quantidadeVagas = 0;
 
+        try {
             driver.get(url);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 //            String[] palavrasChaves = {"pedreiro", "operador", "instalador"};
 
-
-            int quantidade = 0;
             while(true) {
                 List<WebElement> vagasCards = wait.until(
                         ExpectedConditions.presenceOfAllElementsLocatedBy(
@@ -49,18 +41,15 @@ public class GupyService implements IScraper {
                         )
                 );
 
-                quantidade += vagasCards.size();
-                System.out.println("Quantidadeeee: " + quantidade);
-
+                quantidadeVagas += vagasCards.size();
                  vagasCards.forEach(vaga -> {
                      String tituloVaga = vaga.findElement(By.cssSelector("h3.eco-2lmcva")).getText();
                      String nomeEmpresa = vaga.findElement(By.cssSelector("p.eco-t2rjet")).getText();
                      String dataPublicacao = vaga.findElement(By.cssSelector("p.eco-7ia25n")).getText();
                      String urlVaga = vaga.findElement(By.cssSelector("a.eco-p5p5uj")).getAttribute("href");
 
-                     vagasEncontradas.add(new JobDTO(tituloVaga, nomeEmpresa, dataPublicacao, urlVaga));
+                     ScraperUtils.adicionarVaga(vagasEncontradas, tituloVaga, nomeEmpresa, dataPublicacao, urlVaga);
                  });
-
 
                 WebElement proximaPagina = driver.findElement(
                         By.cssSelector("button[aria-label='Próxima página']")
@@ -78,6 +67,7 @@ public class GupyService implements IScraper {
 
         } finally {
             driver.quit();
+            log.info("Foram encontradas {} vagas na Gupy", quantidadeVagas);
         }
 
         return vagasEncontradas;

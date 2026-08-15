@@ -15,5 +15,10 @@ spring:
             enable: true
   thymeleaf:
     enable: true
+  config:
+    import: optional:file:.env[.properties]
 server:
   port: 8089
+url:
+  gupy: ${URL_GUPY_VAGAS}
+  infojobs: ${URL_INFOJOBS_VAGAS}

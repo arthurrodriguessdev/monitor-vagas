@@ -43,6 +43,7 @@ public class InfoJobsService implements IScraper {
                 quantidadeVagas += vagasCards.size();
                 vagasCards.forEach(vaga -> {
                     String tituloVaga = vaga.findElement(By.cssSelector("h2.js_vacancyTitle")).getText();
+                    System.out.println("TÍTULO: "+ tituloVaga);
                     String nomeEmpresa = vaga.findElement(By.cssSelector("span.text-nowrap")).getText();
                     String dataPublicacao = null;
                     String urlVaga = vaga.findElement(By.cssSelector("a.text-decoration-none")).getAttribute("href");

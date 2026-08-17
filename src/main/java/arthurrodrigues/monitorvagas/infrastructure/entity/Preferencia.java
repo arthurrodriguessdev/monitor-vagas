@@ -1,9 +1,13 @@
 package arthurrodrigues.monitorvagas.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "preferencia")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Preferencia {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

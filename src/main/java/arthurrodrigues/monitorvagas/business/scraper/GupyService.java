@@ -32,8 +32,6 @@ public class GupyService implements IScraper {
             driver.get(url);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-//            String[] palavrasChaves = {"pedreiro", "operador", "instalador"};
-
             while(true) {
                 List<WebElement> vagasCards = wait.until(
                         ExpectedConditions.presenceOfAllElementsLocatedBy(

@@ -40,6 +40,9 @@ dependencies {
 	// Dependências do security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
+
+	// Dependência do JWT
+	implementation 'com.auth0:java-jwt:4.6.0'
 }
 
 tasks.named('test') {

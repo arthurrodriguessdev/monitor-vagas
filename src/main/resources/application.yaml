@@ -2,11 +2,11 @@ spring:
   application:
     name: monitor-vagas
   mail:
-    nomeRemetente: Arthur Rodrigues
-    username: arthurrodrigues1801r@gmail.com
-    host: smtp.gmail.com
-    port: 587
-    password: vsrs ubsn mswl foxo
+    nomeRemetente: ${EMAIL_REMETENTE}
+    username: ${EMAIL_USERNAME}
+    host: ${EMAIL_HOST}
+    port: ${EMAIL_PORT}
+    password: ${EMAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -29,7 +29,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 server:
-  port: 8089
+  port: ${APPLICATION_PORT}
 url:
   gupy: ${URL_GUPY_VAGAS}
   infojobs: ${URL_INFOJOBS_VAGAS}

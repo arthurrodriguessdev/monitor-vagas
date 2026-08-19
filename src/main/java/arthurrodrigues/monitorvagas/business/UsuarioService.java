@@ -5,8 +5,6 @@ import arthurrodrigues.monitorvagas.infrastructure.converter.UsuarioConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.security.TokenService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

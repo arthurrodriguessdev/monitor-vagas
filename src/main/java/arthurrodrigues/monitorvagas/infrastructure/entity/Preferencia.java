@@ -15,11 +15,11 @@ public class Preferencia {
 
     @ManyToOne()
     @JoinColumn(name = "id_usuario")
-    public PreferenciaUsuario preferenciaUsuario;
+    public Usuario usuario;
     public String nome;
 
-    public Preferencia(PreferenciaUsuario preferenciaUsuario, String nome){
-        this.preferenciaUsuario = preferenciaUsuario;
+    public Preferencia(Usuario usuario, String nome){
+        this.usuario = usuario;
         this.nome = nome;
     }
 }

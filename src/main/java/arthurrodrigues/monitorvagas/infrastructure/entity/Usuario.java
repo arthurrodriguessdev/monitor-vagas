@@ -29,6 +29,9 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     public String senha;
 
+    @OneToMany(mappedBy = "usuario")
+    public List<Preferencia> preferencias;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

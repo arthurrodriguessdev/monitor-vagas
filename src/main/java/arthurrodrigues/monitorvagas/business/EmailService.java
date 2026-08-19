@@ -1,6 +1,7 @@
 package arthurrodrigues.monitorvagas.business;
 
 import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
+import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
 import arthurrodrigues.monitorvagas.infrastructure.exceptions.EmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
@@ -30,20 +31,21 @@ public class EmailService {
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
 
-    public void enviarEmail(List<JobDTO> listaVagas, int quantidadeVagas){
+    public void enviarEmail(List<JobDTO> listaVagas, UsuarioDTO usuarioDTO, int quantidadeVagas){
         try{
             MimeMessage mensagem = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(
                     mensagem, true, StandardCharsets.UTF_8.name());
 
             mimeMessageHelper.setFrom(new InternetAddress(remetente, nomeRemetente));
-            mimeMessageHelper.setTo(InternetAddress.parse("canaldotu050@gmail.com"));
+            mimeMessageHelper.setTo(InternetAddress.parse(usuarioDTO.email()));
             mimeMessageHelper.setSubject("Vagas de Emprego");
 
             // Setando variáveis do template
             Context context = new Context();
             context.setVariable("vagas", listaVagas);
             context.setVariable("quantidadeVagas", quantidadeVagas);
+            context.setVariable("nomeUsuario", usuarioDTO.nome().toUpperCase());
 
             String template = templateEngine.process("notificacao", context);
             mimeMessageHelper.setText(template, true);

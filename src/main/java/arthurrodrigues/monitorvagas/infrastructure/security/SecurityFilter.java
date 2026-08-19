@@ -1,5 +1,6 @@
 package arthurrodrigues.monitorvagas.infrastructure.security;
 
+import arthurrodrigues.monitorvagas.business.utils.SecurityUtils;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -36,11 +37,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     private String recoverToken(HttpServletRequest httpServletRequest){
         String token = httpServletRequest.getHeader("Authorization");
-        if(token == null){ return null; }
-        if(token.startsWith("Bearer ")){
-            token = token.substring(7);
-        }
-
-        return token;
+        return SecurityUtils.tokenFormat(token);
     }
 }

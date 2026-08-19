@@ -1,3 +1,3 @@
 package arthurrodrigues.monitorvagas.business.dtos;
 
-public record PreferenciaDTO(Long idPreferenciaUsuario, String nome) {}
+public record PreferenciaDTO(Long idUsuario, String nome) {}

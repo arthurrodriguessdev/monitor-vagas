@@ -8,9 +8,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PreferenciaConverter {
     @Mapping(target = "Id", ignore = true)
-    @Mapping(target = "preferenciaUsuario", ignore = true)
+    @Mapping(target = "usuario", ignore = true)
     public Preferencia toPreferencia(PreferenciaDTO preferenciaDTO);
 
-    @Mapping(source = "preferencia.preferenciaUsuario.Id", target = "idPreferenciaUsuario")
+    @Mapping(source = "preferencia.usuario.id", target = "idUsuario")
     public PreferenciaDTO toPreferenciaDTO(Preferencia preferencia);
 }

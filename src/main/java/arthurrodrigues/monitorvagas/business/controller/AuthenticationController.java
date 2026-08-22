@@ -3,7 +3,6 @@ package arthurrodrigues.monitorvagas.business.controller;
 import arthurrodrigues.monitorvagas.business.UsuarioService;
 import arthurrodrigues.monitorvagas.business.dtos.LoginDTO;
 import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
-import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTORequest;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

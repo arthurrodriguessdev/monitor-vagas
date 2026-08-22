@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Entidade de autenticação
+ * */
 @Entity
 @Table(name = "usuario")
 @AllArgsConstructor
@@ -17,7 +20,7 @@ import java.util.List;
 @Builder
 public class Usuario implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     @Column(length = 255, nullable = false)
@@ -31,6 +34,9 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "usuario")
     public List<Preferencia> preferencias;
+
+    @OneToMany(mappedBy = "usuario")
+    public List<VagaRecebida> vagasRecebidas;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

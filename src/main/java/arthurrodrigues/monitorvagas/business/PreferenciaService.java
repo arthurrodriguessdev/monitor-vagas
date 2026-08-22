@@ -5,6 +5,7 @@ import arthurrodrigues.monitorvagas.business.utils.SecurityUtils;
 import arthurrodrigues.monitorvagas.infrastructure.converter.PreferenciaConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
+import arthurrodrigues.monitorvagas.infrastructure.exceptions.UsuarioNotFound;
 import arthurrodrigues.monitorvagas.infrastructure.repository.PreferenciaRepository;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.security.TokenService;
@@ -24,6 +25,10 @@ public class PreferenciaService {
                 SecurityUtils.tokenFormat(token));
 
         Usuario usuario = (Usuario) usuarioRepository.findByEmail(emailUsuario);
+        if(usuario == null){
+            throw new UsuarioNotFound("Usuário não encontrado");
+        }
+
         Preferencia preferencia = preferenciaRepository.save(new Preferencia(usuario, nome));
         return preferenciaConverter.toPreferenciaDTO(preferencia);
     }

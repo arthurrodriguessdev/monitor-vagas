@@ -32,7 +32,7 @@ public class JobService{
     private final VagaRecebidaService vagaRecebidaService;
 
     @Scheduled(fixedDelay = 100000)
-    @Transactional
+    @Transactional // Para manter a integridade dos dados
     public void buscarVagas(){
         List<JobDTO> vagasEncontradas = getAllVagas();
 
@@ -61,18 +61,28 @@ public class JobService{
         });
     }
 
+    /**
+     * Busca vagas nas plataformas Gupy e InfoJobs.
+     * <p>
+     * Caso ocorra um erro durante a busca em uma das plataformas,
+     * registra o erro, mas continua a busca nas demais.
+     *
+     * @return uma lista contendo todas as vagas encontradas.
+     * @throws VagaNotFoundException caso nenhuma vaga seja encontrada
+     * em nenhuma das plataformas.
+     */
     public List<JobDTO> getAllVagas(){
         List<JobDTO> vagasEncontradas = new ArrayList<>();
         try {
             vagasEncontradas.addAll(gupyService.buscarVagas());
         } catch(Exception e){
-            log.error("Erro ao buscar vagas na gupyService: " + e);
+            log.error("Erro ao buscar vagas na gupyService: ", e);
         }
 
         try {
             vagasEncontradas.addAll(infoJobsService.buscarVagas());
         } catch(Exception e) {
-            log.error("Erro ao buscar vagas no infoJobsService: " + e);
+            log.error("Erro ao buscar vagas no infoJobsService: ", e);
         }
 
         if(vagasEncontradas.isEmpty()){
@@ -82,7 +92,21 @@ public class JobService{
         return vagasEncontradas;
     }
 
+    /**
+     * Filtra as vagas de acordo com as preferências do usuário e remove da lista
+     * aquelas que já foram notificadas anteriormente.
+     * <p>
+     * As vagas que ainda não foram recebidas são registradas para evitar o envio
+     * de notificações duplicadas em execuções futuras.
+     *
+     * @param filtros lista contendo os nomes das preferências do usuário utilizadas para filtrar as vagas.
+     * @param vagas lista de todas as vagas encontradas nas plataformas.
+     * @param vagasRecebidas vagas que já foram notificadas ao usuário.
+     * @param idUsuario identificador do usuário que receberá as vagas.
+     * @return lista contendo apenas as vagas que devem ser notificadas.
+     */
     public List<JobDTO> filtrarVagas(List<String> filtros, List<JobDTO> vagas, List<VagaRecebida> vagasRecebidas, Long idUsuario){
+        // Adiciona vagas compatíveis com as preferências do usuário
         List<JobDTO> vagasFinais = new ArrayList<>();
         filtros.forEach(palavra->{
             vagas.stream().filter(vaga->vaga.tituloVaga().toLowerCase().contains(palavra))
@@ -93,32 +117,38 @@ public class JobService{
                     });
         });
 
-        // Percorre as vagas finais, retirando as tarefas que já foram notificadas
+        // Se o usuário ainda não recebeu nenhuma vaga, todas são registradas e notificadas
+        if(vagasRecebidas.isEmpty()) {
+            vagasFinais.forEach(vaga -> {
+                VagaRecebidaDTO vagaRecebidaDTO = new VagaRecebidaDTO(
+                        vaga.tituloVaga(),
+                        vaga.urlVaga(),
+                        idUsuario
+                );
+
+                vagaRecebidaService.registrarVagaRecebida(vagaRecebidaDTO);
+            });
+
+            return vagasFinais;
+        }
+
+        // Cria uma cópia para remover as vagas já notificadas sem alterar a lista original
         List<JobDTO> vagasNotificar = new ArrayList<>(vagasFinais);
         vagasFinais.forEach(vaga->{
-            if(vagasRecebidas.isEmpty()){
-                vagasFinais.forEach(vagaFinal->{
-                    VagaRecebidaDTO vagaRecebidaDTO = new VagaRecebidaDTO(vagaFinal.tituloVaga(), vagaFinal.urlVaga(), idUsuario);
-                    vagaRecebidaService.registrarVagaRecebida(vagaRecebidaDTO);
-                });
+            boolean vagaRecebeu = false;
+            for (VagaRecebida vagaRecebida : vagasRecebidas) {
+                if (vaga.urlVaga().equals(vagaRecebida.urlVaga)) {
+                    vagaRecebeu = true;
+                    break;
+                }
+            }
+
+            if (vagaRecebeu) {
+                vagasNotificar.remove(vaga);
 
             } else {
-
-                boolean vagaRecebeu = false;
-                for (VagaRecebida vagaRecebida : vagasRecebidas) {
-                    if (vaga.urlVaga().equals(vagaRecebida.urlVaga)) {
-                        vagaRecebeu = true;
-                        break;
-                    }
-                }
-
-                if (vagaRecebeu) {
-                    vagasNotificar.remove(vaga);
-
-                } else {
-                    VagaRecebidaDTO vagaRecebidaDTO = new VagaRecebidaDTO(vaga.tituloVaga(), vaga.urlVaga(), idUsuario);
-                    vagaRecebidaService.registrarVagaRecebida(vagaRecebidaDTO);
-                }
+                VagaRecebidaDTO vagaRecebidaDTO = new VagaRecebidaDTO(vaga.tituloVaga(), vaga.urlVaga(), idUsuario);
+                vagaRecebidaService.registrarVagaRecebida(vagaRecebidaDTO);
             }
         });
 

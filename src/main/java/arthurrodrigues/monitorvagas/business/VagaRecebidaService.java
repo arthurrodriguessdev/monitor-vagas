@@ -28,7 +28,10 @@ public class VagaRecebidaService {
 
         VagaRecebida vagaRecebida = vagaRecebidaConverter.toVagaRecebida(vagaRecebidaDTO);
         vagaRecebida.usuario = usuarioDono;
-        System.out.println(vagaRecebida);
-        vagaRecebidaRepository.save(vagaRecebida);
+
+        // Garantir a não duplicidade de chave (urlVaga, idUsuario)
+        if(!vagaRecebidaRepository.existsByUrlVagaAndUsuario(vagaRecebidaDTO.urlVaga(), usuarioDono)){
+            vagaRecebidaRepository.save(vagaRecebida);
+        }
     }
 }

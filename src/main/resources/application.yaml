@@ -33,4 +33,6 @@ server:
 url:
   gupy: ${URL_GUPY_VAGAS}
   infojobs: ${URL_INFOJOBS_VAGAS}
+  catho: ${URL_CATHO_VAGAS}
+  thor: ${URL_THOR_VAGAS}
 secretKeyJwt: ${SECRET_KEY_JWT}

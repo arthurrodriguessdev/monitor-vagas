@@ -26,7 +26,6 @@ public class GupyService implements IScraper {
     public List<JobDTO> buscarVagas() throws InterruptedException{
         WebDriver driver = ScraperUtils.getDriver();
         List<JobDTO> vagasEncontradas = new ArrayList<>();
-        int quantidadeVagas = 0;
 
         try {
             driver.get(url);
@@ -39,7 +38,6 @@ public class GupyService implements IScraper {
                         )
                 );
 
-                quantidadeVagas += vagasCards.size();
                  vagasCards.forEach(vaga -> {
                      String tituloVaga = vaga.findElement(By.cssSelector("h3.eco-2lmcva")).getText();
                      String nomeEmpresa = vaga.findElement(By.cssSelector("p.eco-t2rjet")).getText();
@@ -65,7 +63,7 @@ public class GupyService implements IScraper {
 
         } finally {
             driver.quit();
-            log.info("Foram encontradas {} vagas na Gupy", quantidadeVagas);
+            log.info("Foram encontradas {} vagas na Gupy", vagasEncontradas.size());
         }
 
         return vagasEncontradas;

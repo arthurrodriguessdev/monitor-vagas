@@ -4,7 +4,7 @@ import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
 import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
 import arthurrodrigues.monitorvagas.business.dtos.VagaRecebidaDTO;
 import arthurrodrigues.monitorvagas.business.scraper.GupyService;
-import arthurrodrigues.monitorvagas.business.scraper.InfoJobsService;
+import arthurrodrigues.monitorvagas.business.scraper.ThorService;
 import arthurrodrigues.monitorvagas.infrastructure.converter.UsuarioConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 public class JobService{
     private final GupyService gupyService;
-    private final InfoJobsService infoJobsService;
+    private final ThorService thorService;
     private final EmailService emailService;
     private final UsuarioRepository usuarioRepository;
     private final UsuarioConverter usuarioConverter;
@@ -80,9 +80,9 @@ public class JobService{
         }
 
         try {
-            vagasEncontradas.addAll(infoJobsService.buscarVagas());
+            vagasEncontradas.addAll(thorService.buscarVagas());
         } catch(Exception e) {
-            log.error("Erro ao buscar vagas no infoJobsService: ", e);
+            log.error("Erro ao buscar vagas no ThorService: ", e);
         }
 
         if(vagasEncontradas.isEmpty()){

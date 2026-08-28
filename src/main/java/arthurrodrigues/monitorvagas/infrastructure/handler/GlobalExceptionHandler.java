@@ -2,6 +2,7 @@ package arthurrodrigues.monitorvagas.infrastructure.handler;
 
 import arthurrodrigues.monitorvagas.infrastructure.exceptions.EmailException;
 import arthurrodrigues.monitorvagas.infrastructure.exceptions.UsuarioNotFound;
+import arthurrodrigues.monitorvagas.infrastructure.exceptions.VagaNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UsuarioNotFound.class)
     public ResponseEntity<GlobalErrorMessage> usuarioNotFoundExceptionHandler(UsuarioNotFound ex){
-        GlobalErrorMessage errorMessage = new GlobalErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(globalErrorMessage);
+    }
+
+    @ExceptionHandler(VagaNotFoundException.class)
+    public ResponseEntity<GlobalErrorMessage> vagaNotFoundExceptionHandler(VagaNotFoundException ex){
+        GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(globalErrorMessage);
     }
 }

@@ -2,6 +2,9 @@ package arthurrodrigues.monitorvagas.business.controller;
 
 import arthurrodrigues.monitorvagas.business.JobService;
 import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +15,15 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/vagas")
+@Tag(name = "Vagas", description = "Endpoints relacionados à pesquisa de vagas de emprego")
 public class VagasController {
     private final JobService jobService;
 
-    @GetMapping("/pesquisar")
+    @Operation(summary = "Pesquisa vagas por meio de uma lista de palavras")
+    @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso")
+    @ApiResponse(responseCode = "400", description = "Nenhuma preferência foi informada")
+    @ApiResponse(responseCode = "404", description = "Nenhuma vaga encontrada")
+    @PostMapping("/pesquisar")
     public ResponseEntity<List<JobDTO>> pesquisarVagas(@RequestBody(required = false) List<String> listaPreferencias,
                                                        @RequestHeader("Authorization") String token){
         return ResponseEntity.ok().body(jobService.pesquisarVagas(listaPreferencias));

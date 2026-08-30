@@ -161,7 +161,7 @@ public class JobService{
 
     public List<JobDTO> pesquisarVagas(List<String> listaPreferencias){
         if(listaPreferencias == null || listaPreferencias.isEmpty()){
-            throw new IllegalArgumentException("Informe pelo menos uma palavra para buscar vagas.");
+            throw new IllegalArgumentException("Informe pelo menos uma palavra para buscar vagas");
         }
 
         return this.getAllVagas(listaPreferencias);
@@ -175,12 +175,6 @@ public class JobService{
         } catch(Exception e){
             log.error("Erro ao pesquisar vagas na gupyService: ", e);
         }
-
-//        try {
-//            vagasEncontradas.addAll(thorService.buscarVagas());
-//        } catch(Exception e) {
-//            log.error("Erro ao pesquisar vagas no ThorService: ", e);
-//        }
 
         if(vagasEncontradas.isEmpty()){
             throw new VagaNotFoundException("Nenhuma vaga foi encontrada.");

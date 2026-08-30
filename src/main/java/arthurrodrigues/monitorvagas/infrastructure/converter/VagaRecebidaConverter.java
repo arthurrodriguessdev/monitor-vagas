@@ -1,6 +1,6 @@
 package arthurrodrigues.monitorvagas.infrastructure.converter;
 
-import arthurrodrigues.monitorvagas.business.dtos.VagaRecebidaDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.VagaRecebidaDTO;
 import arthurrodrigues.monitorvagas.infrastructure.entity.VagaRecebida;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

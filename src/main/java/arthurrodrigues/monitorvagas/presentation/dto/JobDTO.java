@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.business.dtos;
+package arthurrodrigues.monitorvagas.presentation.dto;
 
 public record JobDTO(
         String tituloVaga,

@@ -1,8 +1,8 @@
-package arthurrodrigues.monitorvagas.infrastructure.handler;
+package arthurrodrigues.monitorvagas.infrastructure.exception.handler;
 
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.EmailException;
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.UsuarioNotFound;
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.VagaNotFoundException;
+import arthurrodrigues.monitorvagas.infrastructure.exception.EmailException;
+import arthurrodrigues.monitorvagas.infrastructure.exception.UsuarioNotFound;
+import arthurrodrigues.monitorvagas.infrastructure.exception.VagaNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

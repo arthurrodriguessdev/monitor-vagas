@@ -1,7 +1,7 @@
-package arthurrodrigues.monitorvagas.business.controller;
+package arthurrodrigues.monitorvagas.presentation.controller;
 
-import arthurrodrigues.monitorvagas.business.JobService;
-import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
+import arthurrodrigues.monitorvagas.business.service.JobService;
+import arthurrodrigues.monitorvagas.presentation.dto.JobDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

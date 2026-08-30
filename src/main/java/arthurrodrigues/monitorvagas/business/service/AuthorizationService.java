@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.business;
+package arthurrodrigues.monitorvagas.business.service;
 
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;

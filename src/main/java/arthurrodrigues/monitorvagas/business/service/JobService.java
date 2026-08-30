@@ -1,15 +1,15 @@
-package arthurrodrigues.monitorvagas.business;
+package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
-import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
-import arthurrodrigues.monitorvagas.business.dtos.VagaRecebidaDTO;
-import arthurrodrigues.monitorvagas.business.scraper.GupyService;
-import arthurrodrigues.monitorvagas.business.scraper.ThorService;
+import arthurrodrigues.monitorvagas.presentation.dto.JobDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.VagaRecebidaDTO;
+import arthurrodrigues.monitorvagas.infrastructure.scraper.GupyService;
+import arthurrodrigues.monitorvagas.infrastructure.scraper.ThorService;
 import arthurrodrigues.monitorvagas.infrastructure.converter.UsuarioConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import arthurrodrigues.monitorvagas.infrastructure.entity.VagaRecebida;
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.VagaNotFoundException;
+import arthurrodrigues.monitorvagas.infrastructure.exception.VagaNotFoundException;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

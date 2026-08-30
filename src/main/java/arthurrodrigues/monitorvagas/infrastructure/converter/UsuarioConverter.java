@@ -1,7 +1,7 @@
 package arthurrodrigues.monitorvagas.infrastructure.converter;
 
-import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
-import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTORequest;
+import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTORequest;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import org.mapstruct.Mapper;
 

@@ -1,8 +1,8 @@
-package arthurrodrigues.monitorvagas.business;
+package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
-import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.EmailException;
+import arthurrodrigues.monitorvagas.presentation.dto.JobDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
+import arthurrodrigues.monitorvagas.infrastructure.exception.EmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;

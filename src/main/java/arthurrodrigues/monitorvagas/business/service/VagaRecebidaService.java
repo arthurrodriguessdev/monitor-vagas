@@ -1,10 +1,10 @@
-package arthurrodrigues.monitorvagas.business;
+package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.business.dtos.VagaRecebidaDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.VagaRecebidaDTO;
 import arthurrodrigues.monitorvagas.infrastructure.converter.VagaRecebidaConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import arthurrodrigues.monitorvagas.infrastructure.entity.VagaRecebida;
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.UsuarioNotFound;
+import arthurrodrigues.monitorvagas.infrastructure.exception.UsuarioNotFound;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.repository.VagaRecebidaRepository;
 import lombok.RequiredArgsConstructor;

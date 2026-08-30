@@ -1,6 +1,6 @@
 package arthurrodrigues.monitorvagas.business.utils;
 
-import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.JobDTO;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;

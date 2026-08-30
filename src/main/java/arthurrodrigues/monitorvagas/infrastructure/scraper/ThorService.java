@@ -1,6 +1,6 @@
-package arthurrodrigues.monitorvagas.business.scraper;
+package arthurrodrigues.monitorvagas.infrastructure.scraper;
 
-import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.JobDTO;
 import arthurrodrigues.monitorvagas.business.interfaces.IScraper;
 import arthurrodrigues.monitorvagas.business.utils.ScraperUtils;
 import lombok.extern.slf4j.Slf4j;

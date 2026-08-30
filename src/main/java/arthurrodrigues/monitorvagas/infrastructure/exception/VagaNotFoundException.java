@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.infrastructure.exceptions;
+package arthurrodrigues.monitorvagas.infrastructure.exception;
 
 public class VagaNotFoundException extends RuntimeException {
     public VagaNotFoundException(String message) {

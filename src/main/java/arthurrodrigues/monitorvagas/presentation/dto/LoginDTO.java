@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.business.dtos;
+package arthurrodrigues.monitorvagas.presentation.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

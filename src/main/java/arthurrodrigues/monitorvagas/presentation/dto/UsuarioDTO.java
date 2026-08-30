@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.business.dtos;
+package arthurrodrigues.monitorvagas.presentation.dto;
 
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import arthurrodrigues.monitorvagas.infrastructure.entity.VagaRecebida;

@@ -1,6 +1,6 @@
-package arthurrodrigues.monitorvagas.business;
+package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
 import arthurrodrigues.monitorvagas.infrastructure.converter.UsuarioConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;

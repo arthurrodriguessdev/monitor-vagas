@@ -1,9 +1,9 @@
-package arthurrodrigues.monitorvagas.business.scraper;
+package arthurrodrigues.monitorvagas.infrastructure.scraper;
 
-import arthurrodrigues.monitorvagas.business.dtos.JobDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.JobDTO;
 import arthurrodrigues.monitorvagas.business.interfaces.IScraper;
 import arthurrodrigues.monitorvagas.business.utils.ScraperUtils;
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.VagaNotFoundException;
+import arthurrodrigues.monitorvagas.infrastructure.exception.VagaNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;

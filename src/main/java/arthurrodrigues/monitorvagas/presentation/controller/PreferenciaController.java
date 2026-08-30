@@ -1,7 +1,7 @@
-package arthurrodrigues.monitorvagas.business.controller;
+package arthurrodrigues.monitorvagas.presentation.controller;
 
-import arthurrodrigues.monitorvagas.business.PreferenciaService;
-import arthurrodrigues.monitorvagas.business.dtos.PreferenciaDTO;
+import arthurrodrigues.monitorvagas.business.service.PreferenciaService;
+import arthurrodrigues.monitorvagas.presentation.dto.PreferenciaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

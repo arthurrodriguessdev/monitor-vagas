@@ -1,8 +1,8 @@
-package arthurrodrigues.monitorvagas.business.controller;
+package arthurrodrigues.monitorvagas.presentation.controller;
 
-import arthurrodrigues.monitorvagas.business.UsuarioService;
-import arthurrodrigues.monitorvagas.business.dtos.LoginDTO;
-import arthurrodrigues.monitorvagas.business.dtos.UsuarioDTO;
+import arthurrodrigues.monitorvagas.business.service.UsuarioService;
+import arthurrodrigues.monitorvagas.presentation.dto.LoginDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.infrastructure.handler;
+package arthurrodrigues.monitorvagas.infrastructure.exception.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

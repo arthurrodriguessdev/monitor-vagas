@@ -1,11 +1,11 @@
-package arthurrodrigues.monitorvagas.business;
+package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.business.dtos.PreferenciaDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.PreferenciaDTO;
 import arthurrodrigues.monitorvagas.business.utils.SecurityUtils;
 import arthurrodrigues.monitorvagas.infrastructure.converter.PreferenciaConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
-import arthurrodrigues.monitorvagas.infrastructure.exceptions.UsuarioNotFound;
+import arthurrodrigues.monitorvagas.infrastructure.exception.UsuarioNotFound;
 import arthurrodrigues.monitorvagas.infrastructure.repository.PreferenciaRepository;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.security.TokenService;

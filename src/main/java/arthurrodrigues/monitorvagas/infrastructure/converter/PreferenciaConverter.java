@@ -1,6 +1,6 @@
 package arthurrodrigues.monitorvagas.infrastructure.converter;
 
-import arthurrodrigues.monitorvagas.business.dtos.PreferenciaDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.PreferenciaDTO;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

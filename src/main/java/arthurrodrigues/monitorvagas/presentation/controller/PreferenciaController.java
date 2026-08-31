@@ -1,10 +1,12 @@
 package arthurrodrigues.monitorvagas.presentation.controller;
 
 import arthurrodrigues.monitorvagas.business.service.PreferenciaService;
+import arthurrodrigues.monitorvagas.infrastructure.config.SecurityConfig;
 import arthurrodrigues.monitorvagas.presentation.dto.PreferenciaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/preferencia")
 @Tag(name = "Preferências", description = "Operações relacionadas ao gerenciamento das preferências dos usuários")
+@SecurityRequirement(name = SecurityConfig.SECURITY_SCHEME)
 public class PreferenciaController {
     private final PreferenciaService preferenciaService;
 
@@ -30,7 +33,7 @@ public class PreferenciaController {
             @Parameter(description = "Nome da preferência de vaga", example = "Desenvolvedor Java")
             @RequestParam("nomePreferencia") String nome,
 
-            @RequestHeader("Authorization") String token){
+            @RequestHeader(value = "Authorization", required = false) String token){
         return ResponseEntity.ok(preferenciaService.adicionarPreferencia(nome, token));
     }
 }

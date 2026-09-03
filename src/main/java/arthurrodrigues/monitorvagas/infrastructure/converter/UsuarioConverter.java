@@ -9,4 +9,5 @@ import org.mapstruct.Mapper;
 public interface UsuarioConverter {
     UsuarioDTORequest toUsuarioDTORequest(Usuario usuario);
     UsuarioDTO toUsuarioDTO(Usuario usuario);
+//    Usuario toUsuario(UsuarioDTO usuarioDTO);
 }

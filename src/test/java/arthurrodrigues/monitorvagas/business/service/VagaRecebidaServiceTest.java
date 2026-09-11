@@ -21,9 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class VagaRecebidaServiceTest {
@@ -40,7 +38,7 @@ public class VagaRecebidaServiceTest {
     private VagaRecebidaDTO vagaRecebidaDTO;
 
     @BeforeEach
-    void setup(){
+    void setUp(){
         usuario = new Usuario();
         vagaRecebida = new VagaRecebida();
         vagaRecebidaDTO = VagaRecebidaDTOFixture.build();
@@ -65,7 +63,7 @@ public class VagaRecebidaServiceTest {
     }
 
     @Test
-    @DisplayName("Deve retornar a exceção de usuário não encontrado")
+    @DisplayName("Deve lançar exceção quando usuário não for encontrado")
     void deveRetornarExcecaoUsuarioNaoEncontrado(){
         when(usuarioRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -79,12 +77,26 @@ public class VagaRecebidaServiceTest {
                 exception.getMessage()
         );
 
-        // Exceção ocorre antes, não é para chamar estes métodos
+        // Exceção ocorre antes, NÃO é para chamar estes métodos
         verify(vagaRecebidaConverter, never())
                 .toVagaRecebida(any(VagaRecebidaDTO.class));
         verify(vagaRecebidaRepository, never())
                 .existsByUrlVagaAndUsuario(any(), any());
         verify(vagaRecebidaRepository, never())
                 .save(any(VagaRecebida.class));
+    }
+
+    @Test
+    @DisplayName("Não deve salvar vaga que já foi registrada")
+    void naoDeveSalvarQuandoVagaJaEstiverRegistrada(){
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(vagaRecebidaConverter.toVagaRecebida(vagaRecebidaDTO)).thenReturn(vagaRecebida);
+
+        // Retorna que já existe no banco
+        when(vagaRecebidaRepository.existsByUrlVagaAndUsuario(vagaRecebidaDTO.urlVaga(), usuario))
+                .thenReturn(true);
+
+        vagaRecebidaService.registrarVagaRecebida(vagaRecebidaDTO);
+        verify(vagaRecebidaRepository, never()).save(vagaRecebida);
     }
 }

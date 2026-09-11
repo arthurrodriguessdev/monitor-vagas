@@ -1,6 +1,6 @@
 package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.fixtures.UsuarioDTOFixture;
+import arthurrodrigues.monitorvagas.fixtures.dto.UsuarioDTOFixture;
 import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
 import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;

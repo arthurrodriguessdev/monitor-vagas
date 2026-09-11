@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.fixtures;
+package arthurrodrigues.monitorvagas.fixtures.dto;
 
 import arthurrodrigues.monitorvagas.presentation.dto.PreferenciaDTO;
 

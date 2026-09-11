@@ -1,4 +1,4 @@
-package arthurrodrigues.monitorvagas.fixtures;
+package arthurrodrigues.monitorvagas.fixtures.entity;
 
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 

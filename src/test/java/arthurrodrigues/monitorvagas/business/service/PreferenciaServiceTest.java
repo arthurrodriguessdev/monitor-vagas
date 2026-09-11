@@ -1,9 +1,9 @@
 package arthurrodrigues.monitorvagas.business.service;
 
 import arthurrodrigues.monitorvagas.business.utils.SecurityUtils;
-import arthurrodrigues.monitorvagas.fixtures.PreferenciaDTOFixture;
-import arthurrodrigues.monitorvagas.fixtures.PreferenciaFixture;
-import arthurrodrigues.monitorvagas.fixtures.UsuarioFixture;
+import arthurrodrigues.monitorvagas.fixtures.dto.PreferenciaDTOFixture;
+import arthurrodrigues.monitorvagas.fixtures.entity.PreferenciaFixture;
+import arthurrodrigues.monitorvagas.fixtures.entity.UsuarioFixture;
 import arthurrodrigues.monitorvagas.infrastructure.converter.PreferenciaConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;

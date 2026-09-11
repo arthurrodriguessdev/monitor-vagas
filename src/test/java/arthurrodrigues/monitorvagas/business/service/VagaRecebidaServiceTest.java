@@ -1,6 +1,6 @@
 package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.fixtures.VagaRecebidaDTOFixture;
+import arthurrodrigues.monitorvagas.fixtures.dto.VagaRecebidaDTOFixture;
 import arthurrodrigues.monitorvagas.infrastructure.converter.VagaRecebidaConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import arthurrodrigues.monitorvagas.infrastructure.entity.VagaRecebida;

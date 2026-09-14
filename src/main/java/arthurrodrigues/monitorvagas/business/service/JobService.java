@@ -71,7 +71,7 @@ public class JobService{
      * @throws VagaNotFoundException caso nenhuma vaga seja encontrada
      * em nenhuma das plataformas.
      */
-    private List<JobDTO> getAllVagas(){
+    public List<JobDTO> getAllVagas(){
         List<JobDTO> vagasEncontradas = new ArrayList<>();
         try {
             vagasEncontradas.addAll(gupyService.buscarVagas());
@@ -177,7 +177,7 @@ public class JobService{
         }
 
         if(vagasEncontradas.isEmpty()){
-            throw new VagaNotFoundException("Nenhuma vaga foi encontrada.");
+            throw new VagaNotFoundException("Nenhuma vaga foi encontrada");
         }
 
         return vagasEncontradas;

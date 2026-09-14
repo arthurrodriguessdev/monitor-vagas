@@ -26,10 +26,8 @@ import static org.mockito.Mockito.when;
 public class EmailServiceTest {
     @InjectMocks
     private EmailService emailService;
-
     @Mock
     private JavaMailSender javaMailSender;
-
     @Mock
     private TemplateEngine templateEngine;
     private MimeMessage mimeMessage;

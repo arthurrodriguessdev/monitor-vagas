@@ -1,0 +1,20 @@
+services:
+  monitor-vagas:
+    build: . # Vai construir a imagem baseado no dockerfile desse diretório
+    ports:
+      - "8089:8089"
+    env_file:
+      - .env # Pega todas as variáveis de ambiente do .env e manda pro docker
+
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: db_monitor_vagas
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:5432"
+volumes:
+  postgres_data:

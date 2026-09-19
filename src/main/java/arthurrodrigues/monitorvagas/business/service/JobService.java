@@ -37,28 +37,33 @@ public class JobService{
         List<JobDTO> vagasEncontradas = getAllVagas();
 
         List<Usuario> usuarios = usuarioRepository.findAll();
-        usuarios.forEach(usuario->{
-            // Conversão de usuário para DTO
-            UsuarioDTO usuarioDTO = usuarioConverter.toUsuarioDTO(usuario);
-            Long idUsuario = usuarioDTO.id();
+        if(usuarios.isEmpty()){
+            log.info("Nenhum usuário foi encontrado");
 
-            List<Preferencia> preferenciasUsuario = usuarioDTO.preferencias();
-            List<VagaRecebida> vagaRecebidasUsuario = usuarioDTO.vagasRecebidas(); // Lista de vagas que o usuário já foi notificado
-            List<String> nomePreferencias = new ArrayList<>();
+        } else {
+            usuarios.forEach(usuario -> {
+                // Conversão de usuário para DTO
+                UsuarioDTO usuarioDTO = usuarioConverter.toUsuarioDTO(usuario);
+                Long idUsuario = usuarioDTO.id();
 
-            for(Preferencia pref : preferenciasUsuario) {
-                nomePreferencias.add(formatarPreferencia(pref.nome));
-            }
+                List<Preferencia> preferenciasUsuario = usuarioDTO.preferencias();
+                List<VagaRecebida> vagaRecebidasUsuario = usuarioDTO.vagasRecebidas(); // Lista de vagas que o usuário já foi notificado
+                List<String> nomePreferencias = new ArrayList<>();
 
-            List<JobDTO> vagasFinais = filtrarVagas(nomePreferencias, vagasEncontradas, vagaRecebidasUsuario, idUsuario);
-            if(!vagasFinais.isEmpty()) {
-                log.info("Foram encontradas {} vagas para o usuário: {}", vagasFinais.size(), usuarioDTO.email());
-                emailService.enviarEmail(vagasFinais, usuarioDTO, vagasFinais.size());
+                for (Preferencia pref : preferenciasUsuario) {
+                    nomePreferencias.add(formatarPreferencia(pref.nome));
+                }
 
-            } else{
-                log.info("Não foram encontradas vagas para as preferências do usuário de e-email: {}", usuarioDTO.email());
-            }
-        });
+                List<JobDTO> vagasFinais = filtrarVagas(nomePreferencias, vagasEncontradas, vagaRecebidasUsuario, idUsuario);
+                if (!vagasFinais.isEmpty()) {
+                    log.info("Foram encontradas {} vagas para o usuário: {}", vagasFinais.size(), usuarioDTO.email());
+                    emailService.enviarEmail(vagasFinais, usuarioDTO, vagasFinais.size());
+
+                } else {
+                    log.info("Não foram encontradas vagas para as preferências do usuário de e-email: {}", usuarioDTO.email());
+                }
+            });
+        }
     }
 
     /**

@@ -24,40 +24,29 @@ public class GupyService implements IScraper {
     @Value("${url.gupy}")
     private String url;
 
-    private List<JobDTO> buscarVagasPorPagina(List<JobDTO> vagasEncontradas, WebDriver driver) throws InterruptedException {
+    private void buscarVagasPorPagina(List<JobDTO> vagasEncontradas, WebDriver driver) throws InterruptedException {
+        int quantidadeMaximaPaginas = 9;
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        List<WebElement> vagasCards = null;
+        for(int i = 2; i <= quantidadeMaximaPaginas; i++){
+            List<WebElement> vagasCards = null;
+            vagasCards = wait.until(
+                    ExpectedConditions.presenceOfAllElementsLocatedBy(
+                            By.cssSelector("div.eco-cssveg")
+                    )
+            );
 
-        vagasCards = wait.until(
-                ExpectedConditions.presenceOfAllElementsLocatedBy(
-                        By.cssSelector("div.eco-cssveg")
-                )
-        );
+            vagasCards.forEach(vaga -> {
+                String tituloVaga = vaga.findElement(By.cssSelector("h3.eco-2lmcva")).getText();
+                String nomeEmpresa = vaga.findElement(By.cssSelector("p.eco-t2rjet")).getText();
+                String dataPublicacao = vaga.findElement(By.cssSelector("p.eco-7ia25n")).getText();
+                String urlVaga = vaga.findElement(By.cssSelector("a.eco-p5p5uj")).getAttribute("href");
 
+                ScraperUtils.adicionarVaga(vagasEncontradas, tituloVaga, nomeEmpresa, dataPublicacao, urlVaga);
+            });
 
-        vagasCards.forEach(vaga -> {
-            String tituloVaga = vaga.findElement(By.cssSelector("h3.eco-2lmcva")).getText();
-            String nomeEmpresa = vaga.findElement(By.cssSelector("p.eco-t2rjet")).getText();
-            String dataPublicacao = vaga.findElement(By.cssSelector("p.eco-7ia25n")).getText();
-            String urlVaga = vaga.findElement(By.cssSelector("a.eco-p5p5uj")).getAttribute("href");
-
-            ScraperUtils.adicionarVaga(vagasEncontradas, tituloVaga, nomeEmpresa, dataPublicacao, urlVaga);
-        });
-
-        WebElement proximaPagina = driver.findElement(
-                By.cssSelector("button[aria-label='Próxima página']")
-        );
-
-        if(proximaPagina.isEnabled()) {
-            log.info("Buscando na Gupy. URL: {}", driver.getCurrentUrl());
-            proximaPagina.click();
-            Thread.sleep(1000);
-
-        } else{
-            return null;
+            driver.get(String.format(url, "?page=%d", i));
         }
-
-        return vagasEncontradas;
     }
 
     private void buscarTodasPaginas(List<JobDTO> vagasEncontradas, String urlNavegar){
@@ -65,12 +54,7 @@ public class GupyService implements IScraper {
 
         try {
             driver.get(urlNavegar);
-
-            while(true) {
-                if(buscarVagasPorPagina(vagasEncontradas, driver) == null){
-                    break;
-                }
-            }
+            buscarVagasPorPagina(vagasEncontradas, driver);
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

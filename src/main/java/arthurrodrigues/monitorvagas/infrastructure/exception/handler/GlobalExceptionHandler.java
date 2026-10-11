@@ -6,6 +6,7 @@ import arthurrodrigues.monitorvagas.infrastructure.exception.VagaNotFoundExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -35,6 +36,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(VagaNotFoundException.class)
     public ResponseEntity<GlobalErrorMessage> vagaNotFoundExceptionHandler(VagaNotFoundException ex){
         GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(globalErrorMessage);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<GlobalErrorMessage> methodArgumentNotValidExceptionHandler(
+            MethodArgumentNotValidException ex
+    ){
+        String message = ex.getBindingResult()
+                .getFieldErrors()
+                .getFirst()
+                .getDefaultMessage();
+        GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(
+                message,
+                HttpStatus.NOT_FOUND
+        );
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(globalErrorMessage);
     }
 }

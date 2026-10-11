@@ -5,6 +5,7 @@ import arthurrodrigues.monitorvagas.infrastructure.converter.UsuarioConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.security.TokenService;
+import arthurrodrigues.monitorvagas.presentation.dto.login.TokenDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,8 @@ public class UsuarioService {
         return usuarioConverter.toUsuarioDTO(novoUsuario);
     }
 
-    public String login(Usuario usuario){
-        return tokenService.generateToken(usuario);
+    public TokenDTO login(Usuario usuario){
+        String accessToken = tokenService.generateToken(usuario);
+        return new TokenDTO(accessToken);
     }
 }

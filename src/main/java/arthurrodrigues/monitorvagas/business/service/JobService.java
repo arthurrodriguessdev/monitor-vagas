@@ -31,7 +31,7 @@ public class JobService{
     private final UsuarioConverter usuarioConverter;
     private final VagaRecebidaService vagaRecebidaService;
 
-    @Scheduled(fixedDelay = 100000)
+    @Scheduled(fixedDelay = 10000000)
     @Transactional // Para manter a integridade dos dados
     public void buscarVagas(){
         List<JobDTO> vagasEncontradas = getAllVagas();
@@ -169,6 +169,7 @@ public class JobService{
             throw new IllegalArgumentException("Informe pelo menos uma palavra para buscar vagas");
         }
 
+        log.debug("Pesquisando vagas com as preferências: {}", listaPreferencias);
         return this.getAllVagas(listaPreferencias);
     }
 

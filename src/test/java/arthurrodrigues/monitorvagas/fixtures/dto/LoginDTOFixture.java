@@ -1,6 +1,6 @@
 package arthurrodrigues.monitorvagas.fixtures.dto;
 
-import arthurrodrigues.monitorvagas.presentation.dto.LoginDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.login.LoginDTO;
 
 public class LoginDTOFixture {
     public static LoginDTO build(String email, String senha){

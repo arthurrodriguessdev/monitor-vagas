@@ -4,7 +4,7 @@ import arthurrodrigues.monitorvagas.business.service.UsuarioService;
 import arthurrodrigues.monitorvagas.fixtures.dto.LoginDTOFixture;
 import arthurrodrigues.monitorvagas.fixtures.entity.UsuarioFixture;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
-import arthurrodrigues.monitorvagas.presentation.dto.LoginDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.login.LoginDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

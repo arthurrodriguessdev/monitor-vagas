@@ -6,6 +6,7 @@ import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.security.TokenService;
 import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
+import arthurrodrigues.monitorvagas.presentation.dto.login.TokenDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -89,8 +90,8 @@ public class UsuarioServiceTest {
     void deveLogarUsuario(){
         when(tokenService.generateToken(usuario)).thenReturn("tokengerado");
 
-        String tokenGerado = usuarioService.login(usuario);
-        assertEquals("tokengerado", tokenGerado);
+        TokenDTO tokenDTO = usuarioService.login(usuario);
+        assertEquals("tokengerado", tokenDTO.accessToken());
         verify(tokenService).generateToken(usuario);
     }
 }

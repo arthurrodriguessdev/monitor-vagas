@@ -24,7 +24,7 @@ public class GupyService implements IScraper {
     @Value("${url.gupy}")
     private String url;
 
-    private void buscarVagasPorPagina(List<JobDTO> vagasEncontradas, WebDriver driver) throws InterruptedException {
+    private void buscarVagasPorPagina(List<JobDTO> vagasEncontradas, WebDriver driver, String urlBuscar) throws InterruptedException {
         int quantidadeMaximaPaginas = 9;
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -45,7 +45,7 @@ public class GupyService implements IScraper {
                 ScraperUtils.adicionarVaga(vagasEncontradas, tituloVaga, nomeEmpresa, dataPublicacao, urlVaga);
             });
 
-            driver.get(String.format(url, "?page=%d", i));
+            driver.get(String.format(urlBuscar, "?page=%d", i));
         }
     }
 
@@ -54,7 +54,7 @@ public class GupyService implements IScraper {
 
         try {
             driver.get(urlNavegar);
-            buscarVagasPorPagina(vagasEncontradas, driver);
+            buscarVagasPorPagina(vagasEncontradas, driver, urlNavegar);
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

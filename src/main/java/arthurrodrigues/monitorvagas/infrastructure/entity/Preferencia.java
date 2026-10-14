@@ -22,4 +22,8 @@ public class Preferencia {
         this.usuario = usuario;
         this.nome = nome;
     }
+
+    public Long getIdUsuario(){
+        return this.usuario.getId();
+    }
 }

@@ -1,3 +1,3 @@
 package arthurrodrigues.monitorvagas.presentation.dto;
 
-public record PreferenciaDTO(Long idUsuario, String nome) {}
+public record PreferenciaDTO(Long Id, Long idUsuario, String nome) {}

@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -35,5 +37,35 @@ public class PreferenciaController {
 
             @RequestHeader(value = "Authorization", required = false) String token){
         return ResponseEntity.ok(preferenciaService.adicionarPreferencia(nome, token));
+    }
+
+    @GetMapping()
+    @Operation(
+            summary = "Listagem de todas as preferências de um usuário",
+            description = "Lista as preferências cadastradas por um usuário."
+    )
+    @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso.")
+    public ResponseEntity<List<PreferenciaDTO>> listarPreferenciasUsuario(
+            @RequestHeader(value = "Authorization", required = false) String token){
+        return ResponseEntity.ok().body(preferenciaService.listarPreferenciasUsuario(token));
+    }
+
+    @PatchMapping("/{idPreferencia}")
+    @Operation(
+            summary = "Atualização do nome da preferência",
+            description = "Atualiza o nome de uma preferência do usuário"
+    )
+    @ApiResponse(responseCode = "200", description = "Preferência atualizada com sucesso")
+    @ApiResponse(responseCode = "404", description = "Preferência não encontrada")
+    public ResponseEntity<PreferenciaDTO> atualizarNomePreferencia(
+            @RequestHeader(name = "Authorization", required = false) String token,
+            @PathVariable Long idPreferencia,
+            @RequestParam(name = "nomeAtualizado", required = true) String nomeAtualizado
+    ){
+        return ResponseEntity.ok().body(preferenciaService.atualizarNomePreferencia(
+                token,
+                idPreferencia,
+                nomeAtualizado
+        ));
     }
 }

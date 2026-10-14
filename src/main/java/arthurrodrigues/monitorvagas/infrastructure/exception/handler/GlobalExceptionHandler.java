@@ -1,6 +1,7 @@
 package arthurrodrigues.monitorvagas.infrastructure.exception.handler;
 
 import arthurrodrigues.monitorvagas.infrastructure.exception.EmailException;
+import arthurrodrigues.monitorvagas.infrastructure.exception.PreferenciaNotFoundException;
 import arthurrodrigues.monitorvagas.infrastructure.exception.UsuarioNotFound;
 import arthurrodrigues.monitorvagas.infrastructure.exception.VagaNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(VagaNotFoundException.class)
     public ResponseEntity<GlobalErrorMessage> vagaNotFoundExceptionHandler(VagaNotFoundException ex){
+        GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(globalErrorMessage);
+    }
+
+    @ExceptionHandler(PreferenciaNotFoundException.class)
+    public ResponseEntity<GlobalErrorMessage> preferenciaNotFoundException(PreferenciaNotFoundException ex){
         GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(globalErrorMessage);
     }

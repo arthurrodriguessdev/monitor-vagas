@@ -51,7 +51,7 @@ public class JobService{
                 List<String> nomePreferencias = new ArrayList<>();
 
                 for (Preferencia pref : preferenciasUsuario) {
-                    nomePreferencias.add(formatarPreferencia(pref.nome));
+                    nomePreferencias.add(formatarPreferencia(pref.getNome()));
                 }
 
                 List<JobDTO> vagasFinais = filtrarVagas(nomePreferencias, vagasEncontradas, vagaRecebidasUsuario, idUsuario);
@@ -142,7 +142,7 @@ public class JobService{
         vagasFinais.forEach(vaga->{
             boolean vagaRecebeu = false;
             for (VagaRecebida vagaRecebida : vagasRecebidas) {
-                if (vaga.urlVaga().equals(vagaRecebida.urlVaga)) {
+                if (vaga.urlVaga().equals(vagaRecebida.getUrlVaga())) {
                     vagaRecebeu = true;
                     break;
                 }

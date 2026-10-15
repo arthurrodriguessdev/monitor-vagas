@@ -1,9 +1,7 @@
 package arthurrodrigues.monitorvagas.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Representa uma vaga que já foi notificada ao usuário.
@@ -16,18 +14,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class VagaRecebida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @JoinColumn(name = "id_usuario")
     @ManyToOne()
-    public Usuario usuario;
+    private Usuario usuario;
 
     @Column(name = "titulo_vaga", nullable = false)
-    public String tituloVaga;
+    private String tituloVaga;
 
     @Column(name = "url_vaga", nullable = false)
-    public String urlVaga;
+    private String urlVaga;
 }

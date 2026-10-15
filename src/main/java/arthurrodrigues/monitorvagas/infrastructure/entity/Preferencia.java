@@ -2,21 +2,25 @@ package arthurrodrigues.monitorvagas.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "preferencia")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Preferencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long Id;
+    private Long id;
 
     @ManyToOne()
     @JoinColumn(name = "id_usuario")
-    public Usuario usuario;
-    public String nome;
+    private Usuario usuario;
+    private String nome;
 
     public Preferencia(Usuario usuario, String nome){
         this.usuario = usuario;

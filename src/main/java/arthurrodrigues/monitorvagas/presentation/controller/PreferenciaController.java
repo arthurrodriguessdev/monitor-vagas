@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,5 +68,19 @@ public class PreferenciaController {
                 idPreferencia,
                 nomeAtualizado
         ));
+    }
+
+    @DeleteMapping("/{idPreferencia}")
+    @Operation(
+            summary = "Deleta uma preferência",
+            description = "Deleta uma preferência do usuário pelo ID"
+    )
+    @ApiResponse(responseCode = "204", description = "Preferência excluída com sucesso")
+    @ApiResponse(responseCode = "404", description = "Preferência não encontrada ou não pode ser manipulada")
+    public ResponseEntity<Void> deletarPreferencia(
+            @RequestHeader(value = "Authorization", required = false) String token,
+            @PathVariable Long idPreferencia){
+        preferenciaService.deletarPreferencia(idPreferencia, token);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

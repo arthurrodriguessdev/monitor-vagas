@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PreferenciaConverter {
-    @Mapping(target = "Id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "usuario", ignore = true)
     public Preferencia toPreferencia(PreferenciaDTO preferenciaDTO);
 

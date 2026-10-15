@@ -21,22 +21,22 @@ import java.util.List;
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @Column(length = 255, nullable = false)
-    public String nome;
+    private String nome;
 
     @Column(length = 255, nullable = false, unique = true)
-    public String email;
+    private String email;
 
     @Column(nullable = false)
-    public String senha;
+    private String senha;
 
     @OneToMany(mappedBy = "usuario")
-    public List<Preferencia> preferencias;
+    private List<Preferencia> preferencias;
 
     @OneToMany(mappedBy = "usuario")
-    public List<VagaRecebida> vagasRecebidas;
+    private List<VagaRecebida> vagasRecebidas;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -11,6 +11,7 @@ import arthurrodrigues.monitorvagas.infrastructure.repository.PreferenciaReposit
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.security.TokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,9 +62,22 @@ public class PreferenciaService {
         verificarUsuarioPreferencia(preferenciaAtualizar, usuario);
 
         // Atualiza com o novo nome
-        preferenciaAtualizar.nome = nomeAtualizado;
+        preferenciaAtualizar.setNome(nomeAtualizado);
         preferenciaRepository.save(preferenciaAtualizar);
         return preferenciaConverter.toPreferenciaDTO(preferenciaAtualizar);
+    }
+
+    public HttpStatus deletarPreferencia(Long idPreferencia, String token){
+        Usuario usuario = this.getUsuario(token);
+
+        Preferencia preferenciaDeletar = preferenciaRepository
+                .findById(idPreferencia).orElseThrow(()-> new PreferenciaNotFoundException(
+                        "A preferência não foi encontrada."
+                ));
+
+        verificarUsuarioPreferencia(preferenciaDeletar, usuario);
+        preferenciaRepository.delete(preferenciaDeletar);
+        return HttpStatus.NO_CONTENT;
     }
 
     /**

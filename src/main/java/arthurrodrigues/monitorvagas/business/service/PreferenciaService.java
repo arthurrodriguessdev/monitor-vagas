@@ -37,6 +37,7 @@ public class PreferenciaService {
     }
 
     public PreferenciaDTO adicionarPreferencia(String nome, String token){
+        verificarNomePreferencia(nome);
         Usuario usuario = getUsuario(token);
         Preferencia preferencia = preferenciaRepository.save(new Preferencia(usuario, nome));
         return preferenciaConverter.toPreferenciaDTO(preferencia);
@@ -53,6 +54,7 @@ public class PreferenciaService {
             Long idPreferencia,
             String nomeAtualizado){
 
+        verificarNomePreferencia(nomeAtualizado);
         Usuario usuario = getUsuario(token);
         Preferencia preferenciaAtualizar = preferenciaRepository
                 .findById(idPreferencia).orElseThrow(()-> new PreferenciaNotFoundException(
@@ -91,6 +93,19 @@ public class PreferenciaService {
     public void verificarUsuarioPreferencia(Preferencia preferencia, Usuario usuario){
         if(!preferencia.getIdUsuario().equals(usuario.getId())){
             throw new PreferenciaNotFoundException("A preferência não foi encontrada ou não pode ser manipulada.");
+        }
+    }
+
+    /**
+     * Verifica se o nome da preferência contém algum caractere diferente
+     * de espaços em branco.
+     *
+     * @param nomePreferencia nome que será validado
+     * @throws IllegalArgumentException se o nome for nulo ou estiver em branco
+     */
+    public void verificarNomePreferencia(String nomePreferencia){
+        if(nomePreferencia == null || nomePreferencia.isBlank()) {
+            throw new IllegalArgumentException("O nome da preferência não pode estar em branco.");
         }
     }
 }

@@ -68,7 +68,6 @@ public class GupyService implements IScraper {
     @Override
     public List<JobDTO> buscarVagas() {
         List<JobDTO> vagasEncontradas = new ArrayList<>();
-
         buscarTodasPaginas(vagasEncontradas, url);
         return vagasEncontradas;
     }
@@ -91,7 +90,6 @@ public class GupyService implements IScraper {
 
         if(vagasEncontradas.isEmpty()){
             log.info("Nenhuma vaga foi encontrada para as preferências descritas");
-            throw new VagaNotFoundException("Nenhuma vaga foi encontrada");
         }
 
         return vagasEncontradas;

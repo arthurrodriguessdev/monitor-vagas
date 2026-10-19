@@ -182,10 +182,6 @@ public class JobService{
             log.error("Erro ao pesquisar vagas na gupyService: ", e);
         }
 
-        if(vagasEncontradas.isEmpty()){
-            throw new VagaNotFoundException("Nenhuma vaga foi encontrada");
-        }
-
         return vagasEncontradas;
     }
 }

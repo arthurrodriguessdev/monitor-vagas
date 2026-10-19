@@ -20,7 +20,7 @@ public class UsuarioService {
 
     public UsuarioDTO registrarUsuario(String nome, String email, String senha){
         if(usuarioRepository.findByEmail(email) != null){
-            throw new IllegalArgumentException("Já existe um usuário criado com este e-mail");
+            throw new IllegalArgumentException("Já existe um usuário criado com este e-mail.");
         }
 
         senha = passwordEncoder.encode(senha);

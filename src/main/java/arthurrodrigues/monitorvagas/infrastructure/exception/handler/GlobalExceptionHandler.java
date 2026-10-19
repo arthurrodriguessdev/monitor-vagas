@@ -7,6 +7,7 @@ import arthurrodrigues.monitorvagas.infrastructure.exception.VagaNotFoundExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -60,5 +61,12 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(globalErrorMessage);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<GlobalErrorMessage> authenticationExceptionHandler(AuthenticationException ex){
+        String message = "E-mail ou senha inválidos.";
+        GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(message, HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(globalErrorMessage);
     }
 }

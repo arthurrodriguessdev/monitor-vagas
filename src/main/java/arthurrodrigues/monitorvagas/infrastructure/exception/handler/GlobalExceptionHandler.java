@@ -4,7 +4,9 @@ import arthurrodrigues.monitorvagas.infrastructure.exception.EmailException;
 import arthurrodrigues.monitorvagas.infrastructure.exception.PreferenciaNotFoundException;
 import arthurrodrigues.monitorvagas.infrastructure.exception.UsuarioNotFound;
 import arthurrodrigues.monitorvagas.infrastructure.exception.VagaNotFoundException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.agent.builder.AgentBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -67,6 +69,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<GlobalErrorMessage> authenticationExceptionHandler(AuthenticationException ex){
         String message = "E-mail ou senha inválidos.";
         GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(message, HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(globalErrorMessage);
+    }
+
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<GlobalErrorMessage> jwtVerificationExceptionHandler(JWTVerificationException ex){
+        GlobalErrorMessage globalErrorMessage = new GlobalErrorMessage(ex.getMessage(), HttpStatus.UNAUTHORIZED);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(globalErrorMessage);
     }
 }

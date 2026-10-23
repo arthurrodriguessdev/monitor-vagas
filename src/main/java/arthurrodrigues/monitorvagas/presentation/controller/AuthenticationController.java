@@ -52,4 +52,29 @@ public class AuthenticationController {
                 cadastroUsuarioDTO.senha()
         ));
     }
+
+    @PostMapping("/validate")
+    @Operation(
+            summary = "Validar o token de acesso",
+            description = "Faz a validação do token de acesso"
+    )
+    @ApiResponse(responseCode = "200", description = "Token válido.")
+    @ApiResponse(responseCode = "401", description = "Token inválido ou expirado.")
+    public ResponseEntity<Void> validarTokenAcesso(@RequestBody String accessToken){
+        usuarioService.validarTokenAcesso(accessToken);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/refresh")
+    @Operation(
+            summary = "Renovar token de acesso",
+            description = "Gera um novo Access Token utilizando um Refresh Token válido."
+    )
+    @ApiResponse(responseCode = "200", description = "Token renovado com sucesso.")
+    @ApiResponse(responseCode = "401", description = "Refresh Token inválido ou expirado.")
+    public ResponseEntity<TokenDTO> refreshToken(
+            @RequestHeader(required = false) String accessToken,
+            @RequestBody String refreshToken){
+        return ResponseEntity.ok().body(usuarioService.getAcessTokenByRefresh(refreshToken, accessToken));
+    }
 }

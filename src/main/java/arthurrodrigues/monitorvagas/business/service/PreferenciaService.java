@@ -1,15 +1,14 @@
 package arthurrodrigues.monitorvagas.business.service;
 
-import arthurrodrigues.monitorvagas.infrastructure.exception.PreferenciaNotFoundException;
-import arthurrodrigues.monitorvagas.presentation.dto.PreferenciaDTO;
-import arthurrodrigues.monitorvagas.business.utils.SecurityUtils;
+import arthurrodrigues.monitorvagas.business.utils.UsuarioUtils;
 import arthurrodrigues.monitorvagas.infrastructure.converter.PreferenciaConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Preferencia;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
-import arthurrodrigues.monitorvagas.infrastructure.exception.UsuarioNotFound;
+import arthurrodrigues.monitorvagas.infrastructure.exception.PreferenciaNotFoundException;
 import arthurrodrigues.monitorvagas.infrastructure.repository.PreferenciaRepository;
 import arthurrodrigues.monitorvagas.infrastructure.repository.UsuarioRepository;
 import arthurrodrigues.monitorvagas.infrastructure.security.TokenService;
+import arthurrodrigues.monitorvagas.presentation.dto.PreferenciaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,15 +24,7 @@ public class PreferenciaService {
     private final TokenService tokenService;
 
     private Usuario getUsuario(String token){
-        String emailUsuario = tokenService.getSubjectToken(
-                SecurityUtils.tokenFormat(token));
-
-        Usuario usuario = (Usuario) usuarioRepository.findByEmail(emailUsuario);
-        if(usuario == null){
-            throw new UsuarioNotFound("Usuário não encontrado");
-        }
-
-        return usuario;
+        return UsuarioUtils.getUsuario(token);
     }
 
     public PreferenciaDTO adicionarPreferencia(String nome, String token){

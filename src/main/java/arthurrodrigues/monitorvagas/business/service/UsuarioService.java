@@ -1,5 +1,6 @@
 package arthurrodrigues.monitorvagas.business.service;
 
+import arthurrodrigues.monitorvagas.business.utils.UsuarioUtils;
 import arthurrodrigues.monitorvagas.presentation.dto.UsuarioDTO;
 import arthurrodrigues.monitorvagas.infrastructure.converter.UsuarioConverter;
 import arthurrodrigues.monitorvagas.infrastructure.entity.Usuario;
@@ -34,7 +35,21 @@ public class UsuarioService {
     }
 
     public TokenDTO login(Usuario usuario){
-        String accessToken = tokenService.generateToken(usuario);
-        return new TokenDTO(accessToken);
+        String accessToken = tokenService.getAccessToken(usuario);
+        String refreshToken = tokenService.getRefreshToken(usuario);
+        return new TokenDTO(accessToken, refreshToken);
+    }
+
+    public void validarTokenAcesso(String accessToken){
+        tokenService.validateAccessToken(accessToken);
+    }
+
+    public TokenDTO getAcessTokenByRefresh(String refreshToken, String accessToken){
+        String newAccessToken = tokenService.getAccessToken(
+                UsuarioUtils.getUsuario(accessToken),
+                refreshToken
+        );
+
+        return new TokenDTO(newAccessToken, refreshToken);
     }
 }
